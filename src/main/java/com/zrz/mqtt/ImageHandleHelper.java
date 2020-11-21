@@ -120,7 +120,7 @@ public class ImageHandleHelper {
      * @author:liuyc
      * @time:2016年5月27日 下午5:51:20
      */
-    public static final void overlapImage(String bigPath, String smallPath, String outFile) {
+    public static void overlapImage(String bigPath, String smallPath, String outFile) {
         try {
             BufferedImage big = ImageIO.read(new File(bigPath));
             BufferedImage small = ImageIO.read(new File(smallPath));
@@ -134,11 +134,4 @@ public class ImageHandleHelper {
             throw new RuntimeException(e);
         }
     }
-
-      public static void main(String[] args) {
-        String path = "E:\\zrz\\GitHub\\mqtt\\src\\main\\resources\\static\\images\\tess4j\\";
-        String outFile = "e:/out/" + System.currentTimeMillis() + ".jpg";
-        overlapImage(path + "202009140911_05b2e1d0414a4f8a948ca14714975241 (1).jpg", path + "202009140911_05b2e1d0414a4f8a948ca14714975241.jpg", outFile);
-
-      }
 }

@@ -12,4 +12,9 @@ public class IndexController {
     public String index(){
         return "tess4j";
     }
+
+    @GetMapping("/mqtt")
+    public String mqtt(){
+        return "mqtt";
+    }
 }
