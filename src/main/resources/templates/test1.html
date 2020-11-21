@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="box">
+    <div class="wrap">
+        <img  src="http://192.68.60.231:8881/files/cga/uploads/202009140911_05b2e1d0414a4f8a948ca14714975241.jpg" alt="" id="img">
+<!--        <img  src="http://192.68.60.231:8881/files/be3bb8c3ee524e4aaf303966b8d047b0.jpg" alt="" id="img">-->
+        <div class="container"></div>
+    </div>
+</div>
+
+<script src="../static/jquery/jquery.min.js"></script>
+<script type="text/javascript">
+    $('#img').click(function(e){
+        var radius=10;//半径
+        var offset=$(this).offset();
+        var top=e.pageY-offset.top-radius+"px";
+        var left=e.pageX-offset.left-radius+"px";
+        //$('.wrap').append('<div class="ball" style="top:'+top+';left:'+left+'"></div>');
+        $('.container').html('<div class="ball" style="top:'+top+';left:'+left+'"></div>');
+        alert("Y轴"+parseInt(top)+"_X轴："+parseInt(left));
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>mqtt</title>
+</head>
+<style type="text/css">
+    tr{
+        height: 40px;
+    }
+    td{
+        width: 230px;
+    }
+
+</style>
+<script src="../static/mqtt/mqtt.min.js"></script>
+
+<body>
+<script type="text/javascript">
+    let url = "ws://localhost:8083/mqtt";
+    let options = {
+        clear: true,
+        connectTimeout: 4000,
+        keepalive: 60,
+        clientId: "emqx_test",
+        username: "emqx_test",
+        password: "emqx_test"
+    }
+    let client = mqtt.connect(url, options);
+
+    client.on("connect", function () {
+        console.log(client.connected);
+        if (client.connected) {
+            console.log("排队叫号：已连接");
+        }else {
+            alert("排队叫号：网络连接失败，请刷新重试！");
+        }
+    });
+
+    client.onConnectionLost = function () {
+        console.log("mqtt丢失连接");
+    };
+
+    client.on('reconnect', (error) => {
+        console.log('正在重连:', error)
+    })
+
+    client.on('error', (error) => {
+        console.log('连接失败:', error)
+    })
+
+    client.on('message', (topic, message) => {
+        console.log('收到消息：', topic, message.toString())
+    })
+
+    function subscribe() {
+        let subTopic = document.getElementById("subTopic").value;
+        if (client.connected) {
+            client.subscribe(subTopic, function () {
+                console.log("排队叫号：订阅成功！");
+            });
+        }else {
+            alert("排队叫号：网络连接失败，请刷新重试！");
+        }
+    }
+
+    function publish(){
+        let topic = document.getElementById("topic").value;
+        let message = document.getElementById("message").value;
+
+        let qosSelect = document.getElementById("qos");
+        let index = qosSelect.selectedIndex;
+        let qos = qosSelect.options[index].value;
+
+        let retain = false;
+        let retainArray = document.getElementsByName("retain");
+        retainArray.forEach(function (item, index, arr) {
+            if (item[index].checked) {
+                retain = true;
+            }
+        })
+
+        let options = {
+            qos: qos,
+            retain: retain,
+            dup: false,
+            callback: (error) => {
+                console.log(error);
+            }
+        }
+        client.publish(topic, message, options, function (err) {
+            console.log(err);
+        });
+        client.disconnect;
+    }
+
+</script>
+    <div class="mqtt">
+        <table>
+            <tr>
+                <td><label>订阅消息</label></td>
+                <td><label for="subTopic">主题 : </label><input type="text" id="subTopic" value="testtopic"></td>
+                <td><input type="button" id="subscribe" value="订阅" onclick="subscribe()"></td>
+            </tr>
+            <tr>
+                <td><label>发布消息</label></td>
+                <td><label for="topic">主题 : </label><input type="text" id="topic" value="testtopic" ></td>
+                <td><label for="message">消息 : </label><input type="text" id="message" value='{ "msg": "我要开炸鸡店！" }' ></td>
+                <td>
+                    <label for="qos">服务质量 : </label>
+                    <select id="qos" style="width: 130px;height: 23px;">
+                        <option value="0">0</option>
+                        <option value="0">1</option>
+                        <option value="0">2</option>
+                    </select>
+                </td>
+                <td><label for="retain"></label><input type="checkbox" id="retain" value="1" >保留</td>
+                <td><input type="button" id="action" value="发送" onclick="publish()" ></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

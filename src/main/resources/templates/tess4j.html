@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="eh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>tess4j</title>
+    <script th:src="@{/jquery/jquery.min.js}"></script>
+</head>
+<style>
+    table{
+        border-collapse: collapse;
+        width: 100%;
+    }
+    th, td{
+        text-align: left;
+        padding: 8px;
+    }
+    tr:nth-child(even){
+        background-color: #fafafa;
+    }
+    th{
+        background-color: #7799AA;
+        color: white;
+    }
+</style>
+<script type="text/javascript">
+    let object;
+    let big = [];
+    let small = [];
+    $(document).ready(function () {
+        // 获取底图
+        $.getJSON("/json/big.json", function (data) {
+            big = data.RECORDS;
+            console.log(big);
+        });
+
+        // 获取签名图片
+        $.getJSON("/json/small.json", function (data) {
+            small = data.RECORDS;
+            console.log(small);
+        });
+
+        // 获取有问题的数据
+        $.getJSON("/json/data.json", function (data) {
+            let $table = $("#table");
+            let strHtml = "<table>\n" +
+                "<tr>" +
+                    "<th>日期</th>" +
+                    "<th>序号</th>" +
+                    "<th>企业名称</th>" +
+                    "<th>流水号</th>" +
+                    "<th>标记号</th>" +
+                    "<th>是否打印</th>" +
+                    "<th>初步筛选结果</th>" +
+                    "<th>是否有问题</th>" +
+                    "<th>需重新处理</th>" +
+                    "<th>11-17打印材料</th>" +
+                    "<th>签名</th>" +
+                    "<th>底图</th>" +
+                    "<th>合成图</th>" +
+                    "<th>操作</th>" +
+                "</tr>";//存储数据的变量
+            $table.empty();//清空内容
+            object = data.RECORDS;
+            $.each(data.RECORDS, function (haha, item) {
+                strHtml += "<tr>" +
+                        "<td>"+item["日期"]+"</td>" +
+                        "<td>"+item["序号"]+"</td>" +
+                        "<td>"+item["企业名称"]+"</td>" +
+                        "<td>"+item["流水号"]+"</td>" +
+                        "<td>"+item["标记号"]+"</td>" +
+                        "<td>"+item["是否打印"]+"</td>" +
+                        "<td>"+item["初步筛选结果"]+"</td>" +
+                        "<td>"+item["是否有问题"]+"</td>" +
+                        "<td>"+item["需重新处理"]+"</td>" +
+                        "<td>"+ (item["1-17打印材料"] || "")+"</td>";
+                    let caseId = item["流水号"];
+
+                    let smallUrl = "";
+                    let signHtml = "<td>签名图</td>";
+                    small.forEach(function (o, index, array) {
+                        if (o["CASE_ID"] === caseId) {
+                            smallUrl = o["FILE_URL"] || "";
+                            signHtml = "<td><img width='250' height='70' src=\""+ smallUrl +"\" alt='签名图'></td>";
+                        }
+                    })
+                    strHtml += signHtml;
+
+                    let bigUrl = "";
+                    let bigHtml =  "<td>底图</td>";
+                    big.forEach(function (o, index, array) {
+                        if (o["CASEID"] === caseId) {
+
+                            let file_url = o["FILE_URL"];
+                            file_url = file_url.replaceAll('\\', '/');
+
+                            bigUrl = "http://192.68.60.231:8881/files/" + file_url;
+                            bigHtml = "<td><a href='http://192.68.60.231:8881/files/"+file_url+"' target='_blank'>"+ (o["FILE_NAME"] || "")+"</a></td>";
+                        }
+                    });
+                    strHtml += bigHtml;
+
+                    if (smallUrl !== "") {
+                        /*$.ajax({
+                            url: "/synthesis",
+                            type: "post",
+                            data: {
+                                "smallUrl": smallUrl,
+                                "bigUrl": bigUrl,
+                                "caseId": caseId
+                            },
+                            success: function (data) {
+                                console.log(data);
+                            },
+                            error: function () {
+                                console.log("系统错误，请联系管理员！");
+                            }
+                        })*/
+                    }
+
+                    strHtml += "<td></td>";
+                    strHtml += "<td data-big='"+bigUrl+"' data-small='"+smallUrl+"' data-caseid='"+caseId+"' ><input type='button' id='operation' onclick='synthesis(this)' value='合成'></td>";
+                    strHtml +="</tr>";
+
+            })
+            strHtml += "</table>";
+            $table.html(strHtml);//显示处理后的数据
+        });
+    });
+
+    function synthesis(obj) {
+        console.log("开始合成");
+        let smallUrl = $(obj).parent().data("small");
+        let bigUrl = $(obj).parent().data("big");
+        let caseId = $(obj).parent().data("caseid");
+        $.ajax({
+            url: "/system/synthesis",
+            type: "post",
+            data: {
+                "smallUrl": smallUrl,
+                "bigUrl": bigUrl,
+                "caseId": caseId
+            },
+            success: function (data) {
+                if (data.code === '0') {
+                    alert(data.msg + " 文件名是："  + data.data);
+                }else {
+                    alert(data.msg);
+                }
+            },
+            error: function () {
+                console.log("系统错误，请联系管理员！");
+            }
+        })
+    }
+</script>
+<body>
+    <div id="table"></div>
+</body>
+</html>

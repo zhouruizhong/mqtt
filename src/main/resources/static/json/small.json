@@ -1,0 +1,568 @@
+{
+  "RECORDS": [
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202010/28/db75b58a40e244ceae57534388e280ab.jpg",
+      "CASE_ID": "20090100237"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202010/28/f65fbac1d7a74fa2815f2d2eb373c45a.jpg",
+      "CASE_ID": "20090100344"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/17e51b388ca64c348a5d5f68d268e425.jpg",
+      "CASE_ID": "20090100510"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20090100512"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202010/23/de5a4971837942ae91f54b776c09ac0d.jpg",
+      "CASE_ID": "20090200127"
+    },
+    {
+      "FILE_URL": "",
+      "CASE_ID": "20090200240"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202010/28/1becde3a4ce748c68abb497ef982a2d9.jpg",
+      "CASE_ID": "20090200532"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202010/28/dfc685fc59184b6eae8a8ecc237b187c.jpg",
+      "CASE_ID": "20090201187"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202010/28/fe99b44d11dd4a0a8c1d7038696921dc.jpg",
+      "CASE_ID": "20090300234"
+    },
+    {
+      "FILE_URL": "",
+      "CASE_ID": "20090300450"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202010/28/babc5ed36506461db1fa8998dc3f9e77.jpg",
+      "CASE_ID": "20090300522"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202010/28/f6b109bc9f5d4f72be457e50646fd197.jpg",
+      "CASE_ID": "20090300633"
+    },
+    {
+      "FILE_URL": "",
+      "CASE_ID": "20090301191"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20090301504"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202010/28/99c2901146274bf99cccee34bf71c478.jpg",
+      "CASE_ID": "20090301523"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202010/28/dca247c933334357b4df8f423edb5dac.jpg",
+      "CASE_ID": "20090400003"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20090400005"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20090400666"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202010/28/554115879fab43ae8c4375d720c1f1be.jpg",
+      "CASE_ID": "20090400678"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202010/28/8ed5223c75474c89ba50348934d0c813.jpg",
+      "CASE_ID": "20090400682"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202010/28/c541044d44cf48c6ace7747d4354338d.jpg",
+      "CASE_ID": "20090401346"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202010/28/0c8f4eabeda147aebd74edd525b1edbb.jpg",
+      "CASE_ID": "20090700002"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202010/28/f2d55c560f164aa9b5a0d087b776136c.jpg",
+      "CASE_ID": "20090700253"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20090700543"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20090700672"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202010/23/92062d672f53404b9c7bef4e0c10b6e0.jpg",
+      "CASE_ID": "20090700870"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/05/dbc36644b25940bd87b5e2842325d9b3.jpg",
+      "CASE_ID": "20090701264"
+    },
+    {
+      "FILE_URL": "",
+      "CASE_ID": "20090701352"
+    },
+    {
+      "FILE_URL": "",
+      "CASE_ID": "20090701546"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20090800133"
+    },
+    {
+      "FILE_URL": "",
+      "CASE_ID": "20090800309"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20090800445"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202010/28/bc0ff8b9c96e4100b98b9ea807b59c9f.jpg",
+      "CASE_ID": "20090800614"
+    },
+    {
+      "FILE_URL": "",
+      "CASE_ID": "20090800667"
+    },
+    {
+      "FILE_URL": "",
+      "CASE_ID": "20090800674"
+    },
+    {
+      "FILE_URL": "",
+      "CASE_ID": "20090800688"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20090800714"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20090800754"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20090800930"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202010/23/c6110bfae0eb4e1d975da8fedc3060aa.jpg",
+      "CASE_ID": "20090801642"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202010/28/237aca5de50542679591098f5e58c99d.jpg",
+      "CASE_ID": "20090801648"
+    },
+    {
+      "FILE_URL": "",
+      "CASE_ID": "20090900214"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202010/28/60cc198537014bc2b2a53987ac17c6a7.jpg",
+      "CASE_ID": "20090900294"
+    },
+    {
+      "FILE_URL": "",
+      "CASE_ID": "20090900325"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202010/28/4a40c01ead4340f8a4a14c6036e9d6a8.jpg",
+      "CASE_ID": "20090900615"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20090900649"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20090901170"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202010/28/dc8d05099731484fb6c741fa1d467e16.jpg",
+      "CASE_ID": "20090901190"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20090901316"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20090901684"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202010/28/b2f1c695036a4f908bd5145a28480f51.jpg",
+      "CASE_ID": "20091000091"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202010/28/eac7ed4ce06648e6b79a490f7dd759d4.jpg",
+      "CASE_ID": "20091000166"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20091000590"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202010/28/9eedc441ffe3482fa008f7877e8e04e8.jpg",
+      "CASE_ID": "20091000933"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202010/28/52b5cf2d7bd94c75b996791cc4a0fa2a.jpg",
+      "CASE_ID": "20091001490"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202010/23/1b98da5c8fe04233bc21531b5904537c.jpg",
+      "CASE_ID": "20091001552"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20091001585"
+    },
+    {
+      "FILE_URL": "",
+      "CASE_ID": "20091100010"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202010/28/6cdb7a457cc1430b8b3785a063c01a7c.jpg",
+      "CASE_ID": "20091100884"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202010/28/351ffa838dbe4b8fb26ad1443a115f91.jpg",
+      "CASE_ID": "20091101571"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20091101583"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202010/23/d4cad7c2a7ce400cb983f3517b0ecb31.jpg",
+      "CASE_ID": "20091300001"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20091400381"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20091400417"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20091400732"
+    },
+    {
+      "FILE_URL": "",
+      "CASE_ID": "20091401643"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20091500664"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202010/28/0a687d5998fe46c6809efa392c8763ed.jpg",
+      "CASE_ID": "20091500791"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20091501107"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20091501246"
+    },
+    {
+      "FILE_URL": "",
+      "CASE_ID": "20091501642"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20091601223"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202010/28/8a44785747e04682a1b3697152c087ad.jpg",
+      "CASE_ID": "20091601638"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202010/28/74486bab0f9b4c528c6a069a895a905b.jpg",
+      "CASE_ID": "20091601678"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/05/01a7398bd2aa4b1f8fcac5303372e0ca.jpg",
+      "CASE_ID": "20091601805"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20091700704"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20091701054"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20091701382"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20091701392"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20091800708"
+    },
+    {
+      "FILE_URL": "",
+      "CASE_ID": "20091801409"
+    },
+    {
+      "FILE_URL": "",
+      "CASE_ID": "20092100151"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/05/c829711645014adfb7ab1c2bc54d7fbf.jpg",
+      "CASE_ID": "20092100370"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20092100903"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20092100915"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20092101181"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202010/23/cc7aca8ac8be48b8af134cdbf7e23267.jpg",
+      "CASE_ID": "20092101381"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20092101538"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/d4c2b3dddae046768cdd443f1f9d782e.jpg",
+      "CASE_ID": "20092101604"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/af8b2be9b6974939baa93b87ea887f08.jpg",
+      "CASE_ID": "20092101682"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20092101726"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20092101730"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/2eec133b342d4238a1e7f94e93e7f856.jpg",
+      "CASE_ID": "20092200003"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20092200058"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20092200764"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20092200812"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20092201000"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/05/2b3de064ea4c49c0aa5c901003322732.jpg",
+      "CASE_ID": "20092201739"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20092201772"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202010/23/196b59a64e8c406c8e4cc2f36843b666.jpg",
+      "CASE_ID": "20092201781"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20092201785"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20092201793"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20092201794"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202010/28/7c018d1b700946d58065dd84bb6de50a.jpg",
+      "CASE_ID": "20092201802"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20092201810"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20092300134"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20092300137"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20092300374"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20092300527"
+    },
+    {
+      "FILE_URL": "",
+      "CASE_ID": "20092300721"
+    },
+    {
+      "FILE_URL": "",
+      "CASE_ID": "20092300745"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20092301046"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202010/28/b3fa7ae1b1be495b9d5cc1ea326616b7.jpg",
+      "CASE_ID": "20092301155"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/46eeead38df34e6ca5bbf8d0529dbcc7.jpg",
+      "CASE_ID": "20092301700"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/05/0ec41f86ae0248f182a9473f1ef00346.jpg",
+      "CASE_ID": "20092301772"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20092400306"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20092400638"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20092400736"
+    },
+    {
+      "FILE_URL": "",
+      "CASE_ID": "20092400745"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20092400877"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20092400952"
+    },
+    {
+      "FILE_URL": "",
+      "CASE_ID": "20092401038"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20092401349"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/05/709e956bc4b74941981cfe46c6feb77b.jpg",
+      "CASE_ID": "20092401409"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20092401437"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/05/77ee0ac893c14901af82e48f11af6fa0.jpg",
+      "CASE_ID": "20092401450"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20092401528"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20092401648"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20092401737"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/05/4f9124332d304972a17bc835df6066f1.jpg",
+      "CASE_ID": "20092401759"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20092500201"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/05/21fcb7a8b5bb471e90ffe7fbf63de6b1.jpg",
+      "CASE_ID": "20092500207"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20092500245"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/04/678e5d323c134630bb7aa271844954ff.jpg",
+      "CASE_ID": "20092500373"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202010/28/37942e742afa4d0483469a0193e076d0.jpg",
+      "CASE_ID": "20092500437"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/05/b24c38169fa5403583f93d70de697761.jpg",
+      "CASE_ID": "20092500760"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/05/a099f6d4daec4e4287939fa7265f6d7a.jpg",
+      "CASE_ID": "20092500763"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202010/28/f2156ef3bcdc4defb020b01d37d0849c.jpg",
+      "CASE_ID": "20092500941"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202010/23/4e957d9d516c4111a2f23d18dae48c71.jpg",
+      "CASE_ID": "20092501145"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202011/05/11526452c9b240d78534f0e9b5538553.jpg",
+      "CASE_ID": "20092501373"
+    },
+    {
+      "FILE_URL": "http://10.242.181.229/scan_document/202010/28/a06af54f516746a4b31661744662b52b.jpg",
+      "CASE_ID": "20092501709"
+    }
+  ]
+}
