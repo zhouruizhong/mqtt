@@ -116,7 +116,7 @@
                             file_url = file_url.replaceAll('\\', '/');
 
                             bigUrl = prefix + file_url;
-                            bigHtml = "<td><a href='javascript:void' onclick=\"openWindow3('"+bigUrl+"', '"+smallUrl+"', '"+caseId+"', '"+fileName+"')\">"+ (o["FILE_NAME"] || "")+"</a></td>";
+                            bigHtml = "<td><a href='javascript:void' class=\"layui-btn\" onclick=\"openWindow3('"+bigUrl+"', '"+smallUrl+"', '"+caseId+"', '"+fileName+"')\">"+ (o["FILE_NAME"] || "")+"</a></td>";
                         }
                     });
                     strHtml += bigHtml;
@@ -125,7 +125,7 @@
                     file.forEach(function (o, index, array) {
                         if (o["CASEID"] === caseId) {
                             let file_url = o["FILE_URL"];
-                            fileHtml = "<td><a href='javascript:void' onclick=\"openWindow1('"+ prefix + file_url + "')\">查看</a></td>";
+                            fileHtml = "<td><a href='javascript:void' class=\"layui-btn\" onclick=\"openWindow1('"+ prefix + file_url + "')\">查看</a></td>";
                         }
                     })
                     strHtml += fileHtml;
@@ -134,11 +134,11 @@
                     file.forEach(function (o, index, array) {
                         if (o["CASEID"] === caseId) {
                             let file_url = o["FILE_URL"];
-                            newFileHtml = "<td><a href='javascript:void' onclick=\"openWindow2('"+file_url+"')\">查看</a></td>";
+                            newFileHtml = "<td><a href='javascript:void' class=\"layui-btn\" onclick=\"openWindow2('"+file_url+"')\">查看</a></td>";
                         }
                     })
                     strHtml += newFileHtml;
-                    strHtml += "<td data-big='"+bigUrl+"' data-small='"+smallUrl+"' data-caseid='"+caseId+"' ><input type='button' id='operation' onclick='synthesis(this)' value='合成'></td>";
+                    strHtml += "<td data-big='"+bigUrl+"' data-small='"+smallUrl+"' data-caseid='"+caseId+"' ><input type='button' id='operation'class=\"layui-btn layui-btn-primary\" onclick='synthesis(this)' value='合成'></td>";
                     strHtml +="</tr>";
 
             })

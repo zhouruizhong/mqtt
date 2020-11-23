@@ -31,7 +31,7 @@ public class IndexController {
 
     @GetMapping("/preview")
     public String preview(@RequestParam("filePath") String filePath, Model model){
-        model.addAttribute("filePath", filePath);
+        model.addAttribute("filePath", "/image/" + filePath);
         return "preview";
     }
 }
