@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="eh" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -7,23 +7,64 @@
 <body>
 <div class="box">
     <div class="wrap">
-        <img  src="http://192.68.60.231:8881/files/cga/uploads/202009140911_05b2e1d0414a4f8a948ca14714975241.jpg" alt="" id="img">
+        <img th:src="@{${bigUrl}}" alt="" id="img"><br>
+        <label for="abscissa">横坐标:</label><input type="text" id="abscissa">
+        <label for="ordinate">纵坐标:</label><input type="text" id="ordinate">
+        <input type='button' id='operation' onclick='synthesis()' value='合成'>
 <!--        <img  src="http://192.68.60.231:8881/files/be3bb8c3ee524e4aaf303966b8d047b0.jpg" alt="" id="img">-->
         <div class="container"></div>
+        <input type="hidden" id="smallUrl" th:value="${smallUrl}">
+        <input type="hidden" id="bigUrl" th:value="${bigUrl}">
+        <input type="hidden" id="caseId" th:value="${caseId}">
+        <input type="hidden" id="fileName" th:value="${fileName}">
     </div>
 </div>
 
-<script src="../static/jquery/jquery.min.js"></script>
+<script th:src="@{/jquery/jquery.min.js}"></script>
 <script type="text/javascript">
+    let abscissa = 0;
+    let ordinate = 0;
     $('#img').click(function(e){
-        var radius=10;//半径
-        var offset=$(this).offset();
-        var top=e.pageY-offset.top-radius+"px";
-        var left=e.pageX-offset.left-radius+"px";
+        let radius = 10;//半径
+        let offset = $(this).offset();
+        let top = e.pageY - offset.top - radius;
+        let left = e.pageX - offset.left - radius;
         //$('.wrap').append('<div class="ball" style="top:'+top+';left:'+left+'"></div>');
         $('.container').html('<div class="ball" style="top:'+top+';left:'+left+'"></div>');
-        alert("Y轴"+parseInt(top)+"_X轴："+parseInt(left));
+        $("#abscissa").val(left);
+        $("#ordinate").val(top);
+        abscissa = left;
+        ordinate = top;
     })
+
+    function synthesis() {
+        let smallUrl = $('#smallUrl').val();
+        let bigUrl = $('#bigUrl').val();
+        let caseId = $('#caseId').val();
+        let fileName = $('#fileName').val();
+        $.ajax({
+            url: "/system/synthesis1",
+            type: "post",
+            data: {
+                "smallUrl": smallUrl,
+                "bigUrl": bigUrl,
+                "caseId": caseId,
+                "abscissa": abscissa,
+                "ordinate": ordinate,
+                "fileName": fileName
+            },
+            success: function (data) {
+                if (data.code === '0') {
+                    alert(data.msg + " 文件名是："  + data.data);
+                }else {
+                    alert(data.msg);
+                }
+            },
+            error: function () {
+                console.log("系统错误，请联系管理员！");
+            }
+        })
+    }
 </script>
 </body>
 </html>

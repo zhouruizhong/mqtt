@@ -120,13 +120,13 @@ public class Tess4jUtil {
         //按指定宽高创建一个图像副本
         //image = ImageHelper.getSubImage(image, 0, 0, image.getWidth(), image.getHeight());
         // 处理倾斜
-        /*ImageDeskew id = new ImageDeskew(image);
+        ImageDeskew id = new ImageDeskew(image);
         // determine skew angle
         double imageSkewAngle = id.getSkewAngle();
         if ((imageSkewAngle > MINIMUM_DESKEW_THRESHOLD || imageSkewAngle < -(MINIMUM_DESKEW_THRESHOLD))) {
             // deskew image
             image = ImageHelper.rotateImage(image, -imageSkewAngle);
-        }*/
+        }
         //图像转换成灰度的简单方法 - 黑白处理
         image = ImageHelper.convertImageToGrayscale(image);
         //图像缩放 - 放大n倍图像
