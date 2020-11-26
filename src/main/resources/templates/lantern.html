@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="viewport"
+          content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+    <title>元宵节祝福神器</title>
+    <style>
+        html, body, h2, p, ul, li, input, img, div, button, section, header, footer, canvas {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font: 0.14rem "楷体", "Microsoft YaHei", "黑体", "宋体", "Arial", sans-serif;
+            color: #333;
+        }
+        button {
+            outline: none;
+        }
+
+        ul, li {
+            list-style: none;
+        }
+
+        @media only screen and (min-width: 320px) {
+            html {
+                font-size: 42.667px !important;
+            }
+        }
+
+        @media only screen and (min-width: 360px) {
+            html {
+                font-size: 48px !important;
+            }
+        }
+
+        @media only screen and (min-width: 375px) {
+            html {
+                font-size: 50px !important;
+            }
+        }
+
+        @media only screen and (min-width: 412px) {
+            html {
+                font-size: 54.933px !important;
+            }
+        }
+
+        @media only screen and (min-width: 414px) {
+            html {
+                font-size: 55.2px !important;
+            }
+        }
+
+        .clearfix:after {
+            content: "";
+            display: block;
+            height: 0;
+            clear: both;
+            overflow: hidden;
+            visibility: hidden;
+        }
+
+        h2 {
+            height: 1rem;
+            line-height: 1rem;
+            font-size: 0.4rem;
+            background: #c2110c;
+            color: #fff;
+            text-align: center;
+        }
+
+        .img-list {
+            padding: 0 0.4rem 0.4rem;
+        }
+
+        .img-list li.on {
+            border-color: #c2110c;
+            color: #c2110c;
+        }
+
+        .img-list li {
+            width: 2rem;
+            height: 0.4rem;
+            line-height: 0.44rem;
+            text-align: center;
+            font-size: 0.2rem;
+            float: left;
+            margin-top: 0.28rem;
+            margin-right: 0.28rem;
+            -webkit-border-radius: 0.08rem;
+            -moz-border-radius: 0.08rem;
+            border-radius: 0.08rem;
+            border: 1px solid #333;
+        }
+
+        .img-list li:nth-child(3n) {
+            margin-right: 0;
+        }
+
+        .operat {
+            margin: 0 0.4rem 0.4rem;
+        }
+
+        .operat input {
+            width: 3.4rem;
+            height: 0.4rem;
+            font-size: 0.25rem;
+            -webkit-border-radius: 0.08rem;
+            -moz-border-radius: 0.08rem;
+            border-radius: 0.08rem;
+            padding: 0 0.4rem;
+            outline: none;
+            border: 1px solid #333;
+        }
+
+        .operat button {
+            height: 0.41rem;
+            width: 1rem;
+            border: none;
+            background: #c2110c;
+            color: #fff;
+            -webkit-border-radius: 0.1rem;
+            -moz-border-radius: 0.1rem;
+            border-radius: 0.1rem;
+        }
+
+        .operat p {
+            margin: 0.2rem;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h2>元宵节祝福神器</h2>
+</header>
+<section>
+    <div class="img-list">
+        <ul class="clearfix">
+            <li onclick="changeImg(1)" class="on">金狮闹春</li>
+            <li onclick="changeImg(2)">彩灯送福</li>
+            <li onclick="changeImg(3)">合家团圆</li>
+            <li onclick="changeImg(4)">鸡闹元宵</li>
+            <li onclick="changeImg(5)">共度佳节</li>
+            <li onclick="changeImg(6)">喜迎元宵</li>
+            <li onclick="changeImg(7)">诗画送福（1）</li>
+            <li onclick="changeImg(8)">诗画送福（2）</li>
+            <li onclick="changeImg(9)">元宵佳节</li>
+        </ul>
+    </div>
+    <div class="operat">
+        <input id="name" type="text" placeholder="请输入您的名字" maxlength="10">
+        <button class="pro" onclick="drawImage()">生成</button>
+        <p>温馨提示：长按图片可保存到手机或直接发送给朋友！</p>
+    </div>
+    <div class="before" style="width:100%;height:100%;text-align: center">
+        <img id="imgbox" src="/img/1.jpg" alt="" style="width:80%;">
+    </div>
+
+    <div class="pic">
+        <canvas id="myCanvas" style="display: none;">
+            您的浏览器不支持canvas
+        </canvas>
+    </div>
+
+</section>
+<script>
+    var data = [//将每张图片上字体的样式、大小、在图片上的位置记录下来，以便于换到不同图片时获取所需信息（移动端字体样式并不能这样设置，字体样式只适合PC端）
+        {"family": "微软雅黑", "size": "0.053", "x": "0.291", "y": "0.515", "color": "#fa112e"},
+        {"family": "微软雅黑", "size": "0.075", "x": "0.5", "y": "0.645", "color": "#030000"},
+        {"family": "微软雅黑", "size": "0.053", "x": "0.5", "y": "0.645", "color": "#fff"},
+        {"family": "微软雅黑", "size": "0.053", "x": "0.5", "y": "0.545", "color": "#030000"},
+        {"family": "微软雅黑", "size": "0.053", "x": "0.5", "y": "0.755", "color": "#030000"},
+        {"family": "微软雅黑", "size": "0.053", "x": "0.2", "y": "0.57", "color": "#030000"},
+        {"family": "微软雅黑", "size": "0.053", "x": "0.72", "y": "0.41", "color": "#ed3a50"},
+        {"family": "微软雅黑", "size": "0.053", "x": "0.5", "y": "0.54", "color": "#030000"},
+        {"family": "微软雅黑", "size": "0.053", "x": "0.5", "y": "0.795", "color": "#030000"}
+    ]
+
+    function changeImg(id) {
+        var imgbox = document.getElementById("imgbox");
+        imgbox.src = "img/" + id + ".jpg";//将图片名称设置为比较简单的名称方便与通过id切换
+        var liList = document.getElementsByTagName("li");
+        for (var i = 0; i < liList.length; i++) {
+            liList[i].className = "";
+        }
+        liList[id - 1].className = "on";
+    }
+
+    var canvas = document.getElementById("myCanvas");
+
+    function drawImage() {
+        var name = document.getElementById("name").value;
+        var html = "";
+        if(name){
+            var on = document.getElementsByClassName("on")[0];
+            var liList = document.getElementsByTagName("li");
+            var index = getIndex(on,liList);  //获取有on类名的li
+            var  clientWidth = getWidth();　　//获取屏幕宽度用于canvas宽度自适应移动端屏幕
+            canvas.width = 2*clientWidth;　　//由于手机屏幕时retina屏，都会多倍渲染，在此只设置2倍，如果直接设置等于手机屏幕，会导致生成的图片分辨率不够而模糊
+            canvas.height = 2*clientWidth*667/375;
+            var context = canvas.getContext("2d");
+            var imgbox = document.getElementById("imgbox");
+            var num = index + 1;
+            var src = "img/"+num+".jpg";
+            var img = new Image();//创建图片对象，用于在canvas中渲染
+            img.src=src;
+            var w = 2*clientWidth;
+            img.onload = function(){ //当图片加载成功以后再进行下一步动作，如果不加这句，会生成黑图
+                context.drawImage(img, 0, 0, w, w*667/375);//按设计稿图片比例渲染图片高度
+                var font = "600 " + data[index].size*w + "px " + data[index].family;//文字大小也得按照分辨率变化，类似使用rem
+                context.font = font;
+                context.textAlign = "center";
+                context.fillStyle = data[index].color;
+                if(index == 0){
+                    var x = w*data[index].x;
+                    var oy = data[index].y*w*667/375;
+                    for(var i = 0; i < name.length; i++){
+                        var y = oy + 44*i;
+                        context.fillText(name[i],x,y);
+                    }
+                }else if(index == 5){//当文字时竖向显示的时候，以中间为基准，向上向下一行插入一个字
+                    var x = w*data[index].x;
+                    var oy = data[index].y*w*667/375;
+                    for(var i = 0; i < name.length; i++){
+                        var y = oy + 44*i;
+                        context.fillText(name[i],x,y);
+                    }
+                }else{
+                    context.fillText(name,w*data[index].x,data[index].y*w*667/375);
+                }
+                var downloadImg = canvas.toDataURL("image/jpeg");
+                imgbox.src = downloadImg;
+            }
+        }else{
+            alert("请输入您的名字！");
+        }
+
+    }
+
+    function getWidth() {
+        if (window.innerWidth) {
+            return window.innerWidth;
+        } else {
+            if (document.compatMode === "CSS1Compat") {
+                return document.documentElement.clientWidth;
+            } else {
+                return document.body.clientWidth;
+            }
+        }
+    }
+
+    function getIndex(current, obj) {
+        var length = obj.length
+        for (var i = 0; i < length; i++) {
+            if (obj[i] === current) {
+                return i;
+            }
+        }
+    }
+</script>
+
+</body>
+</html>

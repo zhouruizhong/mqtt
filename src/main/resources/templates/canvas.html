@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>canvas</title>
+    <style>
+        body, div {
+            margin: 0;
+            padding: 0;
+        }
+
+        #d1 {
+            width: 500px;
+            height: 400px;
+            border: 2px solid #00FFD1;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas" width="800" height="1000">
+    <p>您的系统不支持此程序!</p>
+</canvas>
+<script type="text/javascript">
+    let canvas = document.getElementById("canvas");
+    let ctx = canvas.getContext("2d");
+    ctx.globalCompositeOperation = "source-over"; //全局合成操作
+    canvas.to
+
+    let big = new Image();
+    big.src = "http://192.68.60.231:8881/files/cga/uploads/202009100319_8b195d664c394e63b39b33da75f4e7f5.jpg";
+    ctx.drawImage(big, 0, 0);
+
+    let small = new Image();
+    small.src = "http://10.242.181.229/scan_document/202010/28/c541044d44cf48c6ace7747d4354338d.jpg";
+    ctx.drawImage(small, 50, 50);
+
+    //在事件外声明需要用到的变量
+    let ax, ay, x, y;
+
+    canvas.onmousedown = function (e) {
+        canvas.onmousemove = function (e) {
+            x = e.clientX;
+            y = e.clientY;
+
+            //限制移动不能超出画布
+            /*(x < 173) ? ax = 75 : ax = 425;
+            (y < 148) ? ay = 50 : ay = 350;
+
+            (x < 425 && x > 75) ? x = e.clientX : x = ax;
+
+            (y > 50 && y < 350) ? y = e.clientY : y = ay;*/
+            //先清除之前的然后重新绘制
+            //ctx.clearRect(small.x, small.y, small.width, small.height);
+            //ctx.drawImage(small, x , y , small.width, small.height);
+        };
+
+        canvas.onmouseup = function () {
+            ctx.restore();
+            ctx.drawImage(small, x , y , small.width, small.height);
+            canvas.onmousemove = null;
+            canvas.onmouseup = null;
+        };
+    }
+</script>
+</body>
+</html>

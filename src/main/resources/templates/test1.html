@@ -2,29 +2,67 @@
 <html lang="eh" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>合成</title>
 </head>
 <body>
 <div class="box">
     <div class="wrap">
-        <img th:src="@{${bigUrl}}" alt="" id="img"><br>
-        <label for="abscissa">横坐标:</label><input type="text" id="abscissa">
-        <label for="ordinate">纵坐标:</label><input type="text" id="ordinate">
-        <input type='button' id='operation' onclick='synthesis()' value='合成'>
-<!--        <img  src="http://192.68.60.231:8881/files/be3bb8c3ee524e4aaf303966b8d047b0.jpg" alt="" id="img">-->
-        <div class="container"></div>
-        <input type="hidden" id="smallUrl" th:value="${smallUrl}">
-        <input type="hidden" id="bigUrl" th:value="${bigUrl}">
-        <input type="hidden" id="caseId" th:value="${caseId}">
-        <input type="hidden" id="fileName" th:value="${fileName}">
+        <!--<div>
+            <canvas id="tutorial" width="800" height="1000">
+                你的浏览器不支持 canvas，请升级你的浏览器。
+            </canvas>
+        </div>-->
+        <div>
+            <img th:src="${bigUrl}" id="bigImg" alt="请不要小看我哦">
+            <!--<img th:src="${smallUrl}" id="smallImg" width='250' height='70' alt="请不要小看我哦">-->
+        </div>
+        <div>
+            <label for="abscissa">横坐标:</label><input type="text" id="abscissa">
+            <label for="ordinate">纵坐标:</label><input type="text" id="ordinate">
+            <label for="scale">放大倍数:</label><input type="text" id="scale" value="3">
+            <input type='button' id='operation' onclick='synthesis()' value='合成'>
+            <!--        <img  src="http://192.68.60.231:8881/files/be3bb8c3ee524e4aaf303966b8d047b0.jpg" alt="" id="img">-->
+            <div class="container"></div>
+            <input type="hidden" id="smallUrl" th:value="${smallUrl}">
+            <input type="hidden" id="bigUrl" th:value="${bigUrl}">
+            <input type="hidden" id="caseId" th:value="${caseId}">
+            <input type="hidden" id="fileName" th:value="${fileName}">
+        </div>
     </div>
 </div>
 
 <script th:src="@{/jquery/jquery.min.js}"></script>
+<script th:src="@{/layui/layui.js}"></script>
 <script type="text/javascript">
+
+    let layer;
+    layui.use('layer', function(){
+        layer = layui.layer;
+    });
+
+    let smallUrl = $('#smallUrl').val();
+    let bigUrl = $('#bigUrl').val();
+
+    /*let canvas = document.getElementById("tutorial");
+    let ctx = canvas.getContext("2d");
+    //ctx.globalCompositeOperation = "source-over"; //全局合成操作
+
+    let bigImg = new Image();
+    bigImg.src = bigUrl;
+    bigImg.onload = function () {
+        ctx.drawImage(bigImg, 0, 0);
+    }
+
+    let smallImg = new Image();
+    smallImg.src = smallUrl;
+    smallImg.onload = function(){
+        ctx.drawImage(smallImg, 100, 100);
+    }*/
+
+
     let abscissa = 0;
     let ordinate = 0;
-    $('#img').click(function(e){
+    $('#bigImg').click(function(e){
         let radius = 10;//半径
         let offset = $(this).offset();
         let top = e.pageY - offset.top - radius;
@@ -33,15 +71,50 @@
         $('.container').html('<div class="ball" style="top:'+top+';left:'+left+'"></div>');
         $("#abscissa").val(left);
         $("#ordinate").val(top);
+        alert("获取成功，横坐标是"+left+"，纵坐标是" + top);
         abscissa = left;
         ordinate = top;
+        //ctx.drawImage(this, 0, 0);
     })
 
+    $('#smallImg').click(function(e){
+        let img = document.getElementById("smallImg");
+        //ctx.clearRect(0, 0, img.offsetWidth, img.offsetHeight);
+        //ctx.save();
+        //ctx.translate();
+        ctx.drawImage(this, 100, 100);
+        //ctx.restore();
+    })
+
+    /*let ax, ay, x, y;
+    canvas.onmousedown = function (e) {
+        canvas.onmousemove = function(e){
+            x = e.clientX;
+            y = e.clientY;
+
+            //限制移动不能超出画布
+            (x < 173) ? ax=75 : ax=425;
+            (y < 148) ? ay=50 : ay=350;
+
+            (x < 425 && x > 75) ? x = e.clientX : x = ax;
+
+            (y > 50 && y < 350) ? y = e.clientY : y = ay;
+            //先清除之前的然后重新绘制
+            //ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            ctx.drawImage(smallImg, x-75, y-50, 150, 100);
+        };
+
+        canvas.onmouseup = function(){
+            canvas.onmousemove = null;
+            canvas.onmouseup = null;
+        };
+    }*/
+
     function synthesis() {
-        let smallUrl = $('#smallUrl').val();
-        let bigUrl = $('#bigUrl').val();
         let caseId = $('#caseId').val();
         let fileName = $('#fileName').val();
+        let scale = $("#scale").val();
         $.ajax({
             url: "/system/synthesis1",
             type: "post",
@@ -49,13 +122,14 @@
                 "smallUrl": smallUrl,
                 "bigUrl": bigUrl,
                 "caseId": caseId,
+                "scale": scale,
                 "abscissa": abscissa,
                 "ordinate": ordinate,
                 "fileName": fileName
             },
             success: function (data) {
-                if (data.code === '0') {
-                    alert(data.msg + " 文件名是："  + data.data);
+                if (data.code === 0) {
+                    //openWindow(data.data);
                 }else {
                     alert(data.msg);
                 }
@@ -64,6 +138,17 @@
                 console.log("系统错误，请联系管理员！");
             }
         })
+    }
+
+    function openWindow(filePath) {
+        layer.open({
+            type: 2,
+            title: '图片查看',
+            area: ['100%','100%'],
+            shade: [0.8, '#393D49'],
+            shadeClose: true,
+            content: '/preview?filePath=' + filePath
+        });
     }
 </script>
 </body>

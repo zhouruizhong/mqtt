@@ -188,13 +188,12 @@ public class ImageHelper {
      * @param y 纵坐标
      * @return
      */
-    public static BufferedImage modifyImageTogether(BufferedImage small, BufferedImage big, int x, int y) {
+    public static BufferedImage modifyImageTogether(BufferedImage small, BufferedImage big, int x, int y, int scale) {
         try {
             int w = small.getWidth();
             int h = small.getHeight();
-            //small = net.sourceforge.tess4j.util.ImageHelper.getScaledInstance(small, w * 3, h * 3);
             g = big.createGraphics();
-            g.drawImage(small, x, y, w, h, null);
+            g.drawImage(small, x, y, w * scale, h * scale, null);
             g.dispose();
         } catch (Exception e) {
             e.printStackTrace();
@@ -209,7 +208,7 @@ public class ImageHelper {
         Word word = Tess4jUtil.getLocation(bigUrl,"签名");
         if (null != word) {
             Rectangle rectangle = word.getBoundingBox();
-            writeImageLocal(outFolder + fileName, modifyImageTogether(small, big, (int)rectangle.getX(), (int)rectangle.getY()));
+            writeImageLocal(outFolder + fileName, modifyImageTogether(small, big, (int)rectangle.getX(), (int)rectangle.getY(), 1));
         }
         //将多张图片合在一起
         System.out.println("success");
@@ -228,7 +227,7 @@ public class ImageHelper {
             Rectangle rectangle = word.getBoundingBox();
             int x = (int) rectangle.getX()/3 + 20;
             int y = (int) rectangle.getY()/3;
-            writeImageLocal(outFile, modifyImageTogether(small, big, x, y));
+            writeImageLocal(outFile, modifyImageTogether(small, big, x, y, 1));
         }
 
         //将多张图片合在一起

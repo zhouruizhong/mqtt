@@ -19,6 +19,11 @@ public class IndexController {
         return "mqtt";
     }
 
+    @GetMapping("/lantern")
+    public String lantern(){
+        return "lantern";
+    }
+
     @GetMapping("/test1")
     public String test1(@RequestParam String bigUrl, @RequestParam String smallUrl, @RequestParam String caseId,
             @RequestParam String fileName,Model model){

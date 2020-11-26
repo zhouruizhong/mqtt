@@ -2,7 +2,7 @@
 <html lang="eh" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>tess4j</title>
+    <title>图片合成</title>
     <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
     <script th:src="@{/jquery/jquery.min.js}"></script>
 
@@ -33,19 +33,16 @@
         // 获取底图
         $.getJSON("/json/big.json", function (data) {
             big = data.RECORDS;
-            console.log(big);
         });
 
         // 获取签名图片
         $.getJSON("/json/small.json", function (data) {
             small = data.RECORDS;
-            console.log(small);
         });
 
         // 获取签名图片
         $.getJSON("/json/cdpf_file.json", function (data) {
             file = data.RECORDS;
-            console.log(file);
         });
 
         // 获取有问题的数据
@@ -53,16 +50,15 @@
             let $table = $("#table");
             let strHtml = "<table>\n" +
                 "<tr>" +
-                    /*"<th>日期</th>" +*/
                     "<th>序号</th>" +
+                    "<th>日期</th>" +
                     "<th>企业名称</th>" +
                     "<th>流水号</th>" +
-                    /*"<th>标记号</th>" +*/
-                    /*"<th>是否打印</th>" +*/
+                    "<th>标记号</th>" +
+                    "<th>是否打印</th>" +
                     "<th>初步筛选结果</th>" +
-                    /*"<th>是否有问题</th>" +*/
+                    "<th>是否有问题</th>" +
                     "<th>需重新处理</th>" +
-                    /*"<th>11-17打印材料</th>" +*/
                     "<th>签名</th>" +
                     "<th>底图</th>" +
                     "<th>原合成图</th>" +
@@ -73,21 +69,21 @@
             object = data.RECORDS;
             $.each(data.RECORDS, function (index, item) {
                 strHtml += "<tr>" +
-                        /*"<td>"+item["日期"]+"</td>" +*/
                         "<td>"+(index + 1)+"</td>" +
+                        "<td>"+item["日期"]+"</td>" +
                         "<td>"+item["企业名称"]+"</td>" +
                         "<td>"+item["流水号"]+"</td>" +
-                        /*"<td>"+item["标记号"]+"</td>" +*/
-                        /*"<td>"+item["是否打印"]+"</td>" +*/
+                        "<td>"+item["标记号"]+"</td>" +
+                        "<td>"+item["是否打印"]+"</td>" +
                         "<td>"+item["初步筛选结果"]+"</td>" +
-                        /*"<td>"+item["是否有问题"]+"</td>" +*/
+                        "<td>"+item["是否有问题"]+"</td>" +
                         "<td>"+item["需重新处理"]+"</td>"
                         /*"<td>"+ (item["1-17打印材料"] || "")+"</td>"*/
                         ;
                     let caseId = item["流水号"];
 
                     let smallUrl = "";
-                    let signHtml = "<td>签名图</td>";
+                    let signHtml = "<td>没有签名图</td>";
                     small.forEach(function (o, index, array) {
                         if (o["CASE_ID"] === caseId) {
                             smallUrl = o["FILE_URL"];
@@ -96,27 +92,27 @@
                             }
                         }
                     })
-                    /*if (smallUrl === "") {
+                    if (smallUrl === "") {
                         return ;
-                    }*/
+                    }
                     strHtml += signHtml;
 
                     let prefix = "http://192.68.60.231:8881/files/";
                     let bigUrl = "";
-                    let bigHtml =  "<td>底图</td>";
+                    let bigHtml =  "<td>没有底图</td>";
                     big.forEach(function (o, index, array) {
                         if (o["CASEID"] === caseId) {
                             let fileName = "";
-                            file.forEach(function (o, index, array) {
-                                if (o["CASEID"] === caseId) {
-                                    fileName = o["FILE_URL"];
+                            file.forEach(function (obj, index, array) {
+                                if (obj["CASEID"] === caseId) {
+                                    fileName = obj["FILE_URL"];
                                 }
                             })
                             let file_url = o["FILE_URL"];
                             file_url = file_url.replaceAll('\\', '/');
 
                             bigUrl = prefix + file_url;
-                            bigHtml = "<td><a href='javascript:void' class=\"layui-btn\" onclick=\"openWindow3('"+bigUrl+"', '"+smallUrl+"', '"+caseId+"', '"+fileName+"')\">"+ (o["FILE_NAME"] || "")+"</a></td>";
+                            bigHtml = "<td><a href='javascript:void' class=\"layui-btn\" onclick=\"openWindow3('"+bigUrl+"', '"+smallUrl+"', '"+caseId+"', '"+fileName+"')\">查看底图</a></td>";
                         }
                     });
                     strHtml += bigHtml;
@@ -125,7 +121,7 @@
                     file.forEach(function (o, index, array) {
                         if (o["CASEID"] === caseId) {
                             let file_url = o["FILE_URL"];
-                            fileHtml = "<td><a href='javascript:void' class=\"layui-btn\" onclick=\"openWindow1('"+ prefix + file_url + "')\">查看</a></td>";
+                            fileHtml = "<td><a href='javascript:void' class=\"layui-btn\" onclick=\"openWindow1('"+ prefix + file_url + "')\">查看原合成图</a></td>";
                         }
                     })
                     strHtml += fileHtml;
@@ -134,11 +130,11 @@
                     file.forEach(function (o, index, array) {
                         if (o["CASEID"] === caseId) {
                             let file_url = o["FILE_URL"];
-                            newFileHtml = "<td><a href='javascript:void' class=\"layui-btn\" onclick=\"openWindow2('"+file_url+"')\">查看</a></td>";
+                            newFileHtml = "<td><a href='javascript:void' class=\"layui-btn\" onclick=\"openWindow2('"+file_url+"')\">新合成图</a></td>";
                         }
                     })
                     strHtml += newFileHtml;
-                    strHtml += "<td data-big='"+bigUrl+"' data-small='"+smallUrl+"' data-caseid='"+caseId+"' ><input type='button' id='operation'class=\"layui-btn layui-btn-primary\" onclick='synthesis(this)' value='合成'></td>";
+                    strHtml += "<td data-big='"+bigUrl+"' data-small='"+smallUrl+"' data-caseid='"+caseId+"' ><input type='button' id='operation'class=\"layui-btn layui-btn-primary\" onclick='synthesis(this)' value='自动合成'></td>";
                     strHtml +="</tr>";
 
             })
@@ -157,34 +153,55 @@
         });
 
         function openWindow1(filePath) {
+            let _btn = ['<i class="fa fa-check"></i> 确认', '<i class="fa fa-close"></i> 关闭'];
             layer.open({
                 title: '图片查看',
                 area: ['80%','90%'],
                 shade: [0.8, '#393D49'],
                 shadeClose: true,
-                content: '<img src="' + filePath + '">'
+                content: '<img src="' + filePath + '">',
+                btn: _btn,
+                yes: function(index, layero){
+                    //do something
+                    layer.close(index); //如果设定了yes回调，需进行手工关闭
+                }
             });
         }
 
         function openWindow2(filePath) {
+            let _btn = ['<i class="fa fa-check"></i> 确认', '<i class="fa fa-close"></i> 关闭'];
             layer.open({
                 type: 2,
                 title: '图片查看',
                 area: ['80%','90%'],
                 shade: [0.8, '#393D49'],
                 shadeClose: true,
-                content: '/preview?filePath=' + filePath
+                content: '/preview?filePath=' + filePath,
+                btn: _btn,
+                yes: function(index, layero){
+                    //do something
+                    layer.close(index); //如果设定了yes回调，需进行手工关闭
+                }
             });
         }
 
         function openWindow3(bigUrl, smallUrl, caseId, fileName) {
+            let _btn = ['<i class="fa fa-check"></i> 确认', '<i class="fa fa-close"></i> 关闭'];
             layer.open({
                 type: 2,
                 title: '图片合成',
                 area: ['80%','90%'],
                 shade: [0.8, '#393D49'],
-                shadeClose: true,
-                content: '/test1?bigUrl=' + bigUrl + "&smallUrl=" + smallUrl + "&caseId=" + caseId + "&fileName=" + fileName
+                shadeClose: false,
+                content: '/test1?bigUrl=' + bigUrl + "&smallUrl=" + smallUrl + "&caseId=" + caseId + "&fileName=" + fileName,
+                btn: _btn,
+                yes: function(index, layero){
+                    //do something
+                    let iframeWin = window[layero.find('iframe')[0]['name']];
+                    iframeWin.synthesis();
+                    layer.close(index); //如果设定了yes回调，需进行手工关闭
+                    openWindow2(fileName);
+                }
             });
         }
 
