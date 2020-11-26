@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>残联申报企业名单</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all">
+</head>
+<body>
+<table class="layui-table" id="demo" lay-filter="grid"></table>
+<script th:src="@{/jquery/jquery.min.js}"></script>
+<script th:src="@{/layui/layui.js}"></script>
+<script>
+    let object, big, small, cdpf = [];
+    $.getJSON("/json/big.json", function (data) {
+        big = data.RECORDS;
+    });
+
+    // 获取签名图片
+    $.getJSON("/json/small.json", function (data) {
+        small = data.RECORDS;
+    });
+
+    // 获取签名图片
+    $.getJSON("/json/cdpf_file.json", function (data) {
+        cdpf = data.RECORDS;
+    });
+
+    // 获取签名图片
+    $.getJSON("/json/data.json", function (data) {
+        object = data.RECORDS;
+    });
+
+    layui.use(['table','form'], function(){
+        let table = layui.table;
+        let form = layui.form;
+
+        //第一个实例
+        table.render({
+            elem: '#demo'
+            //,url: '/json/data.json'
+            ,title:'残联（申报企业名单）'
+            ,data: object
+            ,id: 'testReload'
+            ,page: true //开启分页
+            ,limit: '20'
+            ,skin: 'line' //行边框风格
+            ,even: true //开启隔行背景
+            ,size: 'sm' //小尺寸的表格
+            ,toolbar: 'default'
+            ,defaultToolbar:["filter","exports","print"]
+            ,cols: [
+                [ //表头
+                 {field: '序号', title: '序号', width:80, sort: true, fixed: 'left'}
+                ,{field: '日期', title: '日期', width:80}
+                ,{field: '企业名称', title: '企业名称', width:200}
+                ,{field: '流水号', title: '流水号', width:120}
+                ,{field: '标记号', title: '标记号', width: 100}
+                ,{field: '是否打印', title: '是否打印', width: 100}
+                ,{field: '初步筛选结果', title: '初步筛选结果', width: 135}
+                ,{field: '是否有问题', title: '是否有问题', width: 135}
+                ,{field: '需重新处理', title: '需重新处理', width: 120}
+                ,{field: '11-17打印材料', title: '17打印材料', width: 135}
+                ,{field: 'tbar', title: '签名图', width: 135,
+                    templet: function (d) {
+                        let html = "";
+                        small.forEach(function (item, index, array) {
+                            if (item["CASE_ID"] === d["流水号"]) {
+                                let smallUrl = item["FILE_URL"];
+                                if (smallUrl.trim() !== "") {
+                                    //html = "<img src=\""+ smallUrl +"\" id='small' alt=\""+ smallUrl +"\">";
+                                }
+                            }
+                        })
+                        return html;
+                    }
+                }
+                ,{field: 'op', title: '操作', toolbar: '#barDemo', width: 430, align: 'center'}
+                ]
+            ]
+        });
+
+        //监听工具条
+        table.on('tool(grid)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+            let data = obj.data; //获得当前行数据
+            let layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            let tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
+            let caseId = data["流水号"];
+            let prefix = "http://192.68.60.231:8881/files/";
+            let smallUrl = tr.find("img").attr("src");
+
+            if(layEvent === 'manual'){ //手动合成
+                big.forEach(function (item, index, array) {
+                    if (item["CASEID"] === caseId) {
+                        let fileName = "";
+                        cdpf.forEach(function (obj, index, array) {
+                            if (obj["CASEID"] === caseId) {
+                                fileName = obj["FILE_URL"];
+                            }
+                        })
+                        let file_url = item["FILE_URL"];
+                        file_url = file_url.replaceAll('\\', '/');
+
+                        let bigUrl = prefix + file_url;
+                        openWindow3(bigUrl, smallUrl, caseId, fileName);
+                    }
+                });
+            } else if(layEvent === 'look1'){ //查看原合成图
+                let file_url = "";
+                cdpf.forEach(function (item, index, array) {
+                    if (item["CASEID"] === caseId) {
+                        file_url = item["FILE_URL"];
+                    }
+                })
+                openWindow1(prefix + file_url );
+            } else if(layEvent === 'look2'){ //查看新合成图
+                let file_url = "";
+                cdpf.forEach(function (item, index, array) {
+                    if (item["CASEID"] === caseId) {
+                        file_url = item["FILE_URL"];
+                    }
+                })
+                openWindow2(file_url);
+            } else if(layEvent === 'auto'){ //自动合成
+                layer.alert('Hi，头部工具栏扩展的右侧图标。');
+                synthesis(this);
+            }
+        });
+
+        let $ = layui.$, active = {
+            reload: function(){
+                let name = $('#name');
+                let caseId = $('#caseId');
+
+                //执行重载
+                table.reload('testReload', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    ,where: {
+                        key: {
+                            '企业名称': name.val(),
+                            '流水号':caseId.val()
+                        }
+                    }
+                });
+            }
+        };
+
+        $('.demoTable .layui-btn').on('click', function(){
+            let type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+    });
+
+    function openWindow1(filePath) {
+        let _btn = ['<i class="fa fa-check"></i> 确认', '<i class="fa fa-close"></i> 关闭'];
+        layer.open({
+            title: '图片查看',
+            area: ['80%','90%'],
+            shade: [0.8, '#393D49'],
+            shadeClose: true,
+            content: '<img src="' + filePath + '">',
+            btn: _btn,
+            yes: function(index, layero){
+                //do something
+                layer.close(index); //如果设定了yes回调，需进行手工关闭
+            }
+        });
+    }
+
+    function openWindow2(filePath) {
+        let _btn = ['<i class="fa fa-check"></i> 确认', '<i class="fa fa-close"></i> 关闭'];
+        layer.open({
+            type: 2,
+            title: '图片查看',
+            area: ['80%','90%'],
+            shade: [0.8, '#393D49'],
+            shadeClose: true,
+            content: '/preview?filePath=' + filePath,
+            btn: _btn,
+            yes: function(index, layero){
+                //do something
+                layer.close(index); //如果设定了yes回调，需进行手工关闭
+            }
+        });
+    }
+
+    function openWindow3(bigUrl, smallUrl, caseId, fileName) {
+        let _btn = ['<i class="fa fa-check"></i> 确认', '<i class="fa fa-close"></i> 关闭'];
+        layer.open({
+            type: 2,
+            title: '图片合成',
+            area: ['80%','90%'],
+            shade: [0.8, '#393D49'],
+            shadeClose: false,
+            content: '/test1?bigUrl=' + bigUrl + "&smallUrl=" + smallUrl + "&caseId=" + caseId + "&fileName=" + fileName,
+            btn: _btn,
+            yes: function(index, layero){
+                //do something
+                let iframeWin = window[layero.find('iframe')[0]['name']];
+                iframeWin.synthesis();
+                layer.close(index); //如果设定了yes回调，需进行手工关闭
+                openWindow2(fileName);
+            }
+        });
+    }
+
+    function synthesis(obj) {
+        console.log("开始合成");
+        let smallUrl = $(obj).parent().data("small");
+        let bigUrl = $(obj).parent().data("big");
+        let caseId = $(obj).parent().data("caseid");
+        $.ajax({
+            url: "/system/synthesis",
+            type: "post",
+            data: {
+                "smallUrl": smallUrl,
+                "bigUrl": bigUrl,
+                "caseId": caseId
+            },
+            success: function (data) {
+                if (data.code === '0') {
+                    alert(data.msg + " 文件名是："  + data.data);
+                }else {
+                    alert(data.msg);
+                }
+            },
+            error: function () {
+                console.log("系统错误，请联系管理员！");
+            }
+        })
+    }
+</script>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="manual">手动合成</a>
+    <a class="layui-btn layui-btn-xs" lay-event="look1">查看原合成图</a>
+    <a class="layui-btn layui-btn-xs" lay-event="look2">查看新合成图</a>
+    <a class="layui-btn layui-btn-xs" lay-event="auto">自动合成</a>
+
+    <!-- 这里同样支持 laytpl 语法，如： -->
+    {{#  if(d.auth > 2){ }}
+    <a class="layui-btn layui-btn-xs" lay-event="check">审核</a>
+    {{#  } }}
+</script>
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="add">添加</button>
+        <button class="layui-btn layui-btn-sm" lay-event="delete">删除</button>
+        <button class="layui-btn layui-btn-sm" lay-event="update">编辑</button>
+    </div>
+</script>
+</body>
+</html>

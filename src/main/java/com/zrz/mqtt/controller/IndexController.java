@@ -11,7 +11,7 @@ public class IndexController {
 
     @GetMapping("/")
     public String index(){
-        return "tess4j";
+        return "data";
     }
 
     @GetMapping("/mqtt")
@@ -22,6 +22,16 @@ public class IndexController {
     @GetMapping("/lantern")
     public String lantern(){
         return "lantern";
+    }
+
+    @GetMapping("/data")
+    public String data(){
+        return "data";
+    }
+
+    @GetMapping("/tess4j")
+    public String tess4j(){
+        return "tess4j";
     }
 
     @GetMapping("/test1")

@@ -5,7 +5,6 @@
     <title>图片合成</title>
     <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
     <script th:src="@{/jquery/jquery.min.js}"></script>
-
 </head>
 <style>
     table{
@@ -26,9 +25,7 @@
 </style>
 <script type="text/javascript">
     let object;
-    let big = [];
-    let small = [];
-    let file = [];
+    let data ,big ,small ,file = [];
     $(document).ready(function () {
         // 获取底图
         $.getJSON("/json/big.json", function (data) {
@@ -112,7 +109,7 @@
                             file_url = file_url.replaceAll('\\', '/');
 
                             bigUrl = prefix + file_url;
-                            bigHtml = "<td><a href='javascript:void' class=\"layui-btn\" onclick=\"openWindow3('"+bigUrl+"', '"+smallUrl+"', '"+caseId+"', '"+fileName+"')\">查看底图</a></td>";
+                            bigHtml = "<td><a href='javascript:void' class=\"layui-btn layui-btn-primary\" onclick=\"openWindow3('"+bigUrl+"', '"+smallUrl+"', '"+caseId+"', '"+fileName+"')\">手动合成</a></td>";
                         }
                     });
                     strHtml += bigHtml;
