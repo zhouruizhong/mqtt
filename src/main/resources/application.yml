@@ -1,0 +1,46 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+  tomcat:
+    uri-encoding: UTF-8
+spring:
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+
+  datasource:
+    dynamic:
+      primary: master #设置默认的数据源或者数据源组,默认值即为master
+      strict: false #设置严格模式,默认false不启动. 启动后在未匹配到指定数据源时候会抛出异常,不启动则使用默认数据源.
+      datasource:
+        master:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://localhost:3306/zrz?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+          username: root
+          password: 123456
+        slave:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://localhost:3306/zrz1?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+          username: root
+          password: 123456
+        oracle:
+          driver-class-name: oracle.jdbc.driver.OracleDriver
+          url: jdbc:oracle:thin:@192.68.58.151:1521:orcl
+          username: wisdomgov
+          password: lilo123
+          max-idle: 10
+          max-wait: 10000
+          min-idle: 5
+          initial-size: 5
+
+mybatis-plus:
+  type-aliases-package: com.zrz.mqtt.entity
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:com/zrz/mqtt/mapper/xml/*.xml
