@@ -9,7 +9,39 @@
     <link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all">
 </head>
 <body>
-<table class="layui-table" id="demo" lay-filter="grid"></table>
+<form class="layui-form" id="queryForm" action="" style="padding-top: 15px;margin: 5px;">
+    <div class="layui-inline">
+        <label class="layui-form-label">企业名称: </label>
+        <div class="layui-input-block">
+            <input type="text" name="name" id="name" placeholder="请输入企业名称" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-inline">
+        <label class="layui-form-label">流水号: </label>
+        <div class="layui-input-block">
+            <input type="text" name="caseId" id="caseId" placeholder="请输入流水号" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-inline">
+        <label class="layui-form-label">筛选结果:</label>
+        <div class="layui-input-block">
+            <input type="text" name="screen" id="screen" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-inline">
+        <label class="layui-form-label">需重新处理:</label>
+        <div class="layui-input-block">
+            <input type="text" name="need" id="need" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-inline">
+        <div class="layui-input-block">
+            <button class="layui-btn face-btn" id="query" type="button" data-type="reload" style="height:35px;">搜索</button>
+            <button type="reset" class="layui-btn layui-btn-primary face-btn" style="height:35px;">重置</button>
+        </div>
+    </div>
+</form>
+<table class="layui-table" id="grid" lay-filter="grid"></table>
 <script th:src="@{/jquery/jquery.min.js}"></script>
 <script th:src="@{/layui/layui.js}"></script>
 <script>
@@ -39,21 +71,33 @@
 
         //第一个实例
         table.render({
-            elem: '#demo'
-            //,url: '/json/data.json'
+            elem: '#grid'
+            ,url: '/list'
+            ,method: 'get'
             ,title:'残联（申报企业名单）'
-            ,data: object
-            ,id: 'testReload'
+            //,data: object
+            ,parseData: function(res){ //res 即为原始返回的数据
+                return {
+                    "code": res.code, //解析接口状态
+                    "msg": res.msg, //解析提示文本
+                    "count": res.data.total, //解析数据长度
+                    "data": res.data.list //解析数据列表
+                };
+            },request: {
+                pageName: 'pageNum' //页码的参数名称，默认：page
+                ,limitName: 'pageSize' //每页数据量的参数名，默认：limit
+            }
             ,page: true //开启分页
             ,limit: '20'
             ,skin: 'line' //行边框风格
             ,even: true //开启隔行背景
             ,size: 'sm' //小尺寸的表格
-            ,toolbar: 'default'
+            ,toolbar: '#toolbarDemo'
             ,defaultToolbar:["filter","exports","print"]
             ,cols: [
                 [ //表头
-                 {field: '序号', title: '序号', width:80, sort: true, fixed: 'left'}
+                {checkbox: true, fixed: true}
+                ,{field: '序号', title: '序号', width:80, sort: true, fixed: 'left'}
                 ,{field: '日期', title: '日期', width:80}
                 ,{field: '企业名称', title: '企业名称', width:200}
                 ,{field: '流水号', title: '流水号', width:120}
@@ -70,7 +114,7 @@
                             if (item["CASE_ID"] === d["流水号"]) {
                                 let smallUrl = item["FILE_URL"];
                                 if (smallUrl.trim() !== "") {
-                                    //html = "<img src=\""+ smallUrl +"\" id='small' alt=\""+ smallUrl +"\">";
+                                    html = "<img src=\""+ smallUrl +"\" id='small' alt=\""+ smallUrl +"\">";
                                 }
                             }
                         })
@@ -92,29 +136,38 @@
             let smallUrl = tr.find("img").attr("src");
 
             if(layEvent === 'manual'){ //手动合成
+                let bigUrl = "";
+                let fileName = "";
                 big.forEach(function (item, index, array) {
                     if (item["CASEID"] === caseId) {
-                        let fileName = "";
-                        cdpf.forEach(function (obj, index, array) {
-                            if (obj["CASEID"] === caseId) {
-                                fileName = obj["FILE_URL"];
-                            }
-                        })
                         let file_url = item["FILE_URL"];
                         file_url = file_url.replaceAll('\\', '/');
-
-                        let bigUrl = prefix + file_url;
-                        openWindow3(bigUrl, smallUrl, caseId, fileName);
+                        bigUrl = prefix + file_url;
                     }
                 });
+                cdpf.forEach(function (obj, index, array) {
+                    if (obj["CASEID"] === caseId) {
+                        fileName = obj["FILE_URL"];
+                    }
+                })
+                if (bigUrl !=="" && fileName !== "") {
+                    openWindow3(bigUrl, smallUrl, caseId, fileName);
+                }else {
+                    layer.alert("抱歉！您还没有更新底图！");
+                }
             } else if(layEvent === 'look1'){ //查看原合成图
                 let file_url = "";
                 cdpf.forEach(function (item, index, array) {
                     if (item["CASEID"] === caseId) {
                         file_url = item["FILE_URL"];
+
                     }
                 })
-                openWindow1(prefix + file_url );
+                if (file_url !== "") {
+                    openWindow1(prefix + file_url );
+                }else {
+                    layer.alert("您还没有更新原合成图！");
+                }
             } else if(layEvent === 'look2'){ //查看新合成图
                 let file_url = "";
                 cdpf.forEach(function (item, index, array) {
@@ -122,7 +175,11 @@
                         file_url = item["FILE_URL"];
                     }
                 })
-                openWindow2(file_url);
+                if (file_url !== "") {
+                    openWindow2(file_url);
+                }else {
+                    layer.alert("您还没有新合成图！");
+                }
             } else if(layEvent === 'auto'){ //自动合成
                 layer.alert('Hi，头部工具栏扩展的右侧图标。');
                 synthesis(this);
@@ -131,25 +188,30 @@
 
         let $ = layui.$, active = {
             reload: function(){
-                let name = $('#name');
-                let caseId = $('#caseId');
+                let name = $('#name').val();
+                let caseId = $('#caseId').val();
+                let screen = $('#screen').val();
+                let need = $('#need').val();
 
                 //执行重载
-                table.reload('testReload', {
+                table.reload('grid', {
                     page: {
-                        curr: 1 //重新从第 1 页开始
+                        pageNum: 1 //重新从第 1 页开始
                     }
                     ,where: {
                         key: {
-                            '企业名称': name.val(),
-                            '流水号':caseId.val()
-                        }
+
+                        },
+                        企业名称: name,
+                        流水号: caseId,
+                        初步筛选结果: screen,
+                        需重新处理: need
                     }
                 });
             }
         };
 
-        $('.demoTable .layui-btn').on('click', function(){
+        $('#query').on('click', function(){
             let type = $(this).data('type');
             active[type] ? active[type].call(this) : '';
         });
@@ -209,7 +271,6 @@
     }
 
     function synthesis(obj) {
-        console.log("开始合成");
         let smallUrl = $(obj).parent().data("small");
         let bigUrl = $(obj).parent().data("big");
         let caseId = $(obj).parent().data("caseid");
