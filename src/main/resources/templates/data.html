@@ -107,17 +107,13 @@
                 ,{field: '是否有问题', title: '是否有问题', width: 135}
                 ,{field: '需重新处理', title: '需重新处理', width: 120}
                 ,{field: '11-17打印材料', title: '17打印材料', width: 135}
-                ,{field: 'tbar', title: '签名图', width: 135,
+                ,{field: 'oldUrl', title: '原合成图', hide: true, width: 135}
+                ,{field: 'smallUrl', title: '签名图', width: 135,
                     templet: function (d) {
                         let html = "";
-                        small.forEach(function (item, index, array) {
-                            if (item["CASE_ID"] === d["流水号"]) {
-                                let smallUrl = item["FILE_URL"];
-                                if (smallUrl.trim() !== "") {
-                                    html = "<img src=\""+ smallUrl +"\" id='small' alt=\""+ smallUrl +"\">";
-                                }
-                            }
-                        })
+                        if (d.smallUrl !== undefined && d.smallUrl !== "") {
+                            html = "<img src=\""+ d.smallUrl +"\" id='small' alt=\""+ d.smallUrl +"\">";
+                        }
                         return html;
                     }
                 }
@@ -133,56 +129,33 @@
             let tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
             let caseId = data["流水号"];
             let prefix = "http://192.68.60.231:8881/files/";
-            let smallUrl = tr.find("img").attr("src");
+            let smallUrl = data["smallUrl"];
+            let bigUrl = data["bigUrl"];
+            let oldUrl = data["oldUrl"];
 
             if(layEvent === 'manual'){ //手动合成
-                let bigUrl = "";
-                let fileName = "";
-                big.forEach(function (item, index, array) {
-                    if (item["CASEID"] === caseId) {
-                        let file_url = item["FILE_URL"];
-                        file_url = file_url.replaceAll('\\', '/');
-                        bigUrl = prefix + file_url;
-                    }
-                });
-                cdpf.forEach(function (obj, index, array) {
-                    if (obj["CASEID"] === caseId) {
-                        fileName = obj["FILE_URL"];
-                    }
-                })
-                if (bigUrl !=="" && fileName !== "") {
-                    openWindow3(bigUrl, smallUrl, caseId, fileName);
+                if (bigUrl !=="" && oldUrl !== "") {
+                    bigUrl = bigUrl.replaceAll('\\', '/');
+                    openWindow3(bigUrl, smallUrl, caseId, oldUrl);
                 }else {
                     layer.alert("抱歉！您还没有更新底图！");
                 }
             } else if(layEvent === 'look1'){ //查看原合成图
-                let file_url = "";
-                cdpf.forEach(function (item, index, array) {
-                    if (item["CASEID"] === caseId) {
-                        file_url = item["FILE_URL"];
-
-                    }
-                })
-                if (file_url !== "") {
-                    openWindow1(prefix + file_url );
+                if (oldUrl !== "") {
+                    openWindow1(prefix + oldUrl );
                 }else {
                     layer.alert("您还没有更新原合成图！");
                 }
             } else if(layEvent === 'look2'){ //查看新合成图
-                let file_url = "";
-                cdpf.forEach(function (item, index, array) {
-                    if (item["CASEID"] === caseId) {
-                        file_url = item["FILE_URL"];
-                    }
-                })
-                if (file_url !== "") {
-                    openWindow2(file_url);
+                if (oldUrl !== "") {
+                    openWindow2(oldUrl);
                 }else {
                     layer.alert("您还没有新合成图！");
                 }
             } else if(layEvent === 'auto'){ //自动合成
-                layer.alert('Hi，头部工具栏扩展的右侧图标。');
-                synthesis(this);
+                layer.confirm('你确定要开始合成吗！', function () {
+                    synthesis(this);
+                });
             }
         });
 

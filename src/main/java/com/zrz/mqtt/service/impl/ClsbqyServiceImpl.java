@@ -7,11 +7,18 @@ import com.github.pagehelper.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.zrz.mqtt.entity.Attachment;
+import com.zrz.mqtt.entity.CdpfFile;
 import com.zrz.mqtt.entity.Clsbqy;
+import com.zrz.mqtt.entity.IntelligentApprovalData;
 import com.zrz.mqtt.mapper.ClsbqyMapper;
+import com.zrz.mqtt.service.AttachmentService;
+import com.zrz.mqtt.service.CdpfFileService;
 import com.zrz.mqtt.service.ClsbqyService;
+import com.zrz.mqtt.service.SignPictureService;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +29,17 @@ import java.util.Map;
 @Service
 @DS("master")
 public class ClsbqyServiceImpl extends ServiceImpl<ClsbqyMapper, Clsbqy> implements ClsbqyService {
+
+    private static final String PREFIX = "http://192.68.60.231:8881/files/";
+
+    @Resource
+    private AttachmentService attachmentService;
+
+    @Resource
+    private CdpfFileService cdpfFileService;
+
+    @Resource
+    private SignPictureService signPictureService;
 
     @Override
     public PageInfo<Map<String, Object>> queryClsbqyListByPage(Map<String, Object> map){
@@ -47,6 +65,27 @@ public class ClsbqyServiceImpl extends ServiceImpl<ClsbqyMapper, Clsbqy> impleme
             clsbqy.set需重新处理(reHandle.toString());
         }
         List<Map<String, Object>> list = this.baseMapper.selectMaps(Wrappers.query(clsbqy));
+        for (Map<String, Object> objectMap: list) {
+            if (null == objectMap.get("流水号")) {
+                continue;
+            }
+            String _caseId = (String) objectMap.get("流水号");
+            // 查询底图
+            Attachment attachment = attachmentService.queryAttachmentByCaseId(_caseId);
+            if (null != attachment) {
+                objectMap.put("bigUrl", PREFIX + attachment.getFileUrl());
+            }
+            // 查询原合成图
+            CdpfFile cdpfFile = cdpfFileService.queryByCaseId(_caseId, "1");
+            if (null != cdpfFile) {
+                objectMap.put("oldUrl", cdpfFile.getFileUrl());
+            }
+            //查询签名图
+            IntelligentApprovalData data = signPictureService.queryFileByCaseId(_caseId);
+            if (null != data) {
+                objectMap.put("smallUrl", data.getMaterialFileUrl());
+            }
+        }
         //获取分页查询后的pageInfo对象数据
         PageInfo<Map<String, Object>> pageInfo = new PageInfo<>(list);
         //pageInfo中获取到的总记录数total：

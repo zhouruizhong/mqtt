@@ -18,11 +18,11 @@ import java.util.Map;
  */
 
 @Service
-@DS("slave")
+@DS("oracle")
 public class CdpfFileServiceImpl extends ServiceImpl<CdpfFileMapper, CdpfFile> implements CdpfFileService {
 
     @Resource
-    private JdbcTemplate jdbcTemplate;
+    private CdpfFileMapper cdpfFileMapper;
 
     @Transactional(rollbackFor = Exception.class)
     public void add(CdpfFile cdpfFile){
@@ -30,9 +30,8 @@ public class CdpfFileServiceImpl extends ServiceImpl<CdpfFileMapper, CdpfFile> i
     }
 
     @Override
-    public List<Map<String, Object>> queryListByPage(Map<String, Object> map){
-        String sql = "select * from clsbqy";
-        return jdbcTemplate.queryForList(sql);
+    public CdpfFile queryByCaseId(String caseId, String isValid) {
+        return cdpfFileMapper.queryCdpfByCaseId(caseId, isValid);
     }
 
 }

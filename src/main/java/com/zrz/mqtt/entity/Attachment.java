@@ -8,27 +8,30 @@ import lombok.experimental.Accessors;
 
 @Data
 @Accessors(chain = true)
-@TableName("CDPF_FILE")
-public class CdpfFile {
+public class Attachment {
 
     @TableId("FILE_ID")
     private String fileId;
 
-    @TableField("CASEID")
-    private String caseId;
+    @TableField("FILE_NAME")
+    private String fileName;
 
-    @TableField("FILE_URL")
-    private String fileUrl;
+    @TableField("FILE_SIZE")
+    private String fileSize;
 
     @TableField("FILE_TYPE")
     private String fileType;
 
+    @TableField("FILE_URL")
+    private String fileUrl;
+
     @TableField("IS_VALID")
     private String isValid;
 
-    @TableField("CREATE_TIME")
-    private String createTime;
+    @TableField("CREATE_DATE")
+    private String createDate;
 
-    @TableField("PRO_DOC_ID")
-    private String proDocId;
+    @TableField("FILE_SOURCE")
+    private String fileSource;
+
 }

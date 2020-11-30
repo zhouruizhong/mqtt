@@ -44,3 +44,8 @@ mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
   mapper-locations: classpath:com/zrz/mqtt/mapper/xml/*.xml
+
+logging:
+  level:
+    root: info
+    com.zrz.mqtt.mapper: trace

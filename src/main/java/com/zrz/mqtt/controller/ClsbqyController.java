@@ -37,8 +37,4 @@ public class ClsbqyController {
         return Result.success(clsbqyService.queryClsbqyListByPage(map));
     }
 
-    @GetMapping("dataList")
-    public Result dataList(@RequestParam(required = false) Map<String, Object> map){
-        return Result.success(cdpfFileService.queryListByPage(map));
-    }
 }
